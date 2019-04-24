@@ -8,5 +8,17 @@
     <Setting Name="frameTimeout" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">2000</Value>
     </Setting>
+    <Setting Name="sampleTime" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">16</Value>
+    </Setting>
+    <Setting Name="logicOneFactor" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">4</Value>
+    </Setting>
+    <Setting Name="logicZeroFactor" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="startBitFactor" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">4</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

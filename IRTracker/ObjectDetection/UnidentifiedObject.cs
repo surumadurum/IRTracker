@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
-namespace IRTracker
+namespace IRTracker.ObjectDetection
 {
     class UnidentifiedObject
     {
@@ -70,7 +70,7 @@ namespace IRTracker
                     if (OnObjectIdentified != null)
                         OnObjectIdentified(this, ID);
 
-                    //We just got the next beacon, so rethrow in order not to loose it
+                    //We just got the next (5th) beacon, so rethrow in order not to loose it
                     if (OnRethrowEdge != null)
                         OnRethrowEdge(position, EdgeDetector.Edge.RISING);
                 }

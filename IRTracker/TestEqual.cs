@@ -6,24 +6,25 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Timers;
 using System.Diagnostics;
+using IRTracker.ObjectDetection;
 
 namespace IRTracker
 {
-    class Test
+    class TestEqual
     {
         Stopwatch sndwatch = new Stopwatch();
-        SignatureAnalyzer signature = new SignatureAnalyzer();
+        SignatureAnalyzer analyzer = new SignatureAnalyzer();
 
         Stopwatch[] stopwatches = new[] { new Stopwatch(), new Stopwatch(), new Stopwatch() };
 
         public void Run()
         {
-            //signature.BlobDetectedAt(new Vector2(10, 10));
-            //signature.BlobDetectedAt(new Vector2(20, 20));
-            //signature.FinalizeCurrentFrame();
-            //signature.BlobDetectedAt(new Vector2(20, 20));
-            //signature.BlobDetectedAt(new Vector2(30, 30));
-            //signature.FinalizeCurrentFrame();
+            //analyzer.BlobDetectedAt(new Vector2(10, 10));
+            //analyzer.BlobDetectedAt(new Vector2(20, 20));
+            //analyzer.FinalizeCurrentFrame();
+            //analyzer.BlobDetectedAt(new Vector2(20, 20));
+            //analyzer.BlobDetectedAt(new Vector2(30, 30));
+            //analyzer.FinalizeCurrentFrame();
 
             sndwatch.Start();
 
@@ -32,7 +33,7 @@ namespace IRTracker
 
             while (true)
             {
-                //foreach (var obj in signature.identifiedObjects)
+                //foreach (var obj in analyzer.identifiedObjects)
                 //    Console.WriteLine("{0}: {1}\t{2}", obj.ID, obj.latestPosition.x, obj.latestPosition.y);
 
                 Thread.Sleep(1);
@@ -62,22 +63,10 @@ namespace IRTracker
 
         int state2 = 1;
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
-
         {
             state2 = 1 - state2;
             //  Console.WriteLine(sndwatch.ElapsedMilliseconds);
             sndwatch.Restart();
-        }
-
-        private void Shutter_Elapsed(object sender, ElapsedEventArgs e)
-        {
-
-            if (state == 1)
-                signature.BlobDetectedAt(new Vector2(20, 20));
-            if (state2 == 1)
-                signature.BlobDetectedAt(new Vector2(30, 30));
-
-            signature.FinalizeCurrentFrame();
         }
 
         int state = 1;
@@ -85,5 +74,16 @@ namespace IRTracker
         {
             state = 1 - state;
         }
+        
+        private void Shutter_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            if (state == 1)
+                analyzer.BlobDetectedAt(new Vector2(20, 20));
+            if (state2 == 1)
+                analyzer.BlobDetectedAt(new Vector2(30, 30));
+
+            analyzer.FinalizeCurrentFrame();
+        }
+
     }
 }

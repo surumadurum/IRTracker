@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
-
+using IRTracker.ObjectDetection;
 namespace IRTracker
 {
     static class Program
@@ -19,7 +19,10 @@ namespace IRTracker
             //Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Form1());
 
-            Test test = new Test();
+            BinaryDecoder binaryDecoder = new BinaryDecoder();
+            binaryDecoder.Decode(new List<int>() { 64,32,64,64 });
+
+            TestEqual test = new TestEqual();
             test.Run();
         }
 

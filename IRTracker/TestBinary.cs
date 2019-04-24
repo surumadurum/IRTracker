@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IRTracker.ObjectDetection;
 
 namespace IRTracker
 {
-    class InvalidDecoderConditionException : Exception
+    class TestBinary
     {
-        public InvalidDecoderConditionException(string error) : base(error) { }
+        void Run()
+        {
+            
+        }
     }
 }

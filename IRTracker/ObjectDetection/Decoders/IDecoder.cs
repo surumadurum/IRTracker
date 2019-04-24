@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 
-namespace IRTracker
+namespace IRTracker.ObjectDetection
 {
     interface IDecoder
     {
-        int Decode(List<Stopwatch> stopwatches);
+        int Decode(List<int> stopwatches);
     }
 }
