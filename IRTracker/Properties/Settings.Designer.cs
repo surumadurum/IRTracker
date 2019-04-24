@@ -31,5 +31,14 @@ namespace IRTracker.Properties {
                 return ((int)(this["frameLength"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2000")]
+        public int frameTimeout {
+            get {
+                return ((int)(this["frameTimeout"]));
+            }
+        }
     }
 }

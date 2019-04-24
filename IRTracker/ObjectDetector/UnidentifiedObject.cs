@@ -8,7 +8,9 @@ namespace IRTracker
 {
     class UnidentifiedObject
     {
-        public int[] position { get; set; }
+        //TODO: Implement timeout functionality
+
+        public Vector2 position { get; set; }
         private EdgeDetector edgeDetector;
 
         public IDecoder decoder { get; set; } = new EqualDecoder();
@@ -19,13 +21,19 @@ namespace IRTracker
         public delegate void OnObjectNotIdentifiedHandler(UnidentifiedObject obj, string error);
         public event OnObjectNotIdentifiedHandler OnObjectNotIdentified;
 
+        public delegate void OnRethrowEdgeHandler(Vector2 pos, EdgeDetector.Edge edge);
+        public event OnRethrowEdgeHandler OnRethrowEdge;
+
         private List<Stopwatch> frameStopwatches = new List<Stopwatch>();
 
-        public UnidentifiedObject()
+        public UnidentifiedObject(Vector2 position)
         {
+            this.position = position;
+
             edgeDetector = new EdgeDetector();
             edgeDetector.OnEdgeDetected += EdgeDetectedCallback;
         }
+
         public void SignatureNewValue(bool val)
         {
             edgeDetector.NewValue(val);
@@ -48,7 +56,7 @@ namespace IRTracker
 
         void CheckFrameComplete()
         {
-            if(frameStopwatches.Count==Properties.Settings.Default.frameLength+1)
+            if (frameStopwatches.Count == Properties.Settings.Default.frameLength + 1)
             {
                 Debug.WriteLine("[UnidentifiedObject] frame complete");
 
@@ -59,12 +67,16 @@ namespace IRTracker
                 {
                     int ID = decoder.Decode(frameStopwatches);
 
-                    if (OnObjectIdentified.GetInvocationList().Length>0)
+                    if (OnObjectIdentified != null)
                         OnObjectIdentified(this, ID);
+
+                    //We just got the next beacon, so rethrow in order not to loose it
+                    if (OnRethrowEdge != null)
+                        OnRethrowEdge(position, EdgeDetector.Edge.RISING);
                 }
-                catch(InvalidDecoderConditionException ex)
+                catch (InvalidDecoderConditionException ex)
                 {
-                    if (OnObjectNotIdentified.GetInvocationList().Length > 0)
+                    if (OnObjectNotIdentified != null)
                         OnObjectNotIdentified(this, ex.Message);
                 }
             }

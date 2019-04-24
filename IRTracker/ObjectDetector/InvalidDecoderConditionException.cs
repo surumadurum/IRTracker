@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IRTracker.ObjectDetector
+namespace IRTracker
 {
     class InvalidDecoderConditionException : Exception
     {
